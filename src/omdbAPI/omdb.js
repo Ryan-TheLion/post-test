@@ -10,7 +10,7 @@ export class OmdbAPI {
     this.#versionTool = new OmdbAPIVersioningTool();
     this.version = this.#versionTool.setVersion(version);
     this.#fetcher = axios.create({
-      baseURL: `/api/${this.version}`,
+      baseURL: `/api`,
     });
   }
 
@@ -42,7 +42,7 @@ export class OmdbAPI {
     try {
       const movieDetailPath = this.getPath("movie");
       console.log(this.#fetcher.getUri());
-      const res = await this.#fetcher.post(`${movieDetailPath}/${imdbId}`, {
+      const res = await this.#fetcher.post(movieDetailPath, {
         imdbId,
       });
 

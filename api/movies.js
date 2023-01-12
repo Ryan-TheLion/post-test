@@ -1,9 +1,9 @@
 import axios, { HttpStatusCode } from "axios";
 import {
-  GetMovieDetailRequestDto,
-  GetMovieDetailResponseDto,
+  GetMoviesRequestDto,
+  GetMoviesResponseDto,
   OmdbAPIResponse,
-} from "../../../src/omdbAPI/dto";
+} from "../src/omdbAPI/dto";
 
 const url = `${process.env.apiUrl}/?apikey=${process.env.apiKey}`;
 
@@ -15,10 +15,10 @@ export default async function handler(req, res) {
       query: req.query,
     });
     const { data } = await axios.get(url, {
-      params: { ...GetMovieDetailRequestDto.from({ ...req.body }) },
+      params: { ...GetMoviesRequestDto.from({ ...req.body }) },
     });
 
-    const { status, payload, message } = GetMovieDetailResponseDto.from(data);
+    const { status, payload, message } = GetMoviesResponseDto.from(data);
 
     return res
       .status(status)

@@ -18,7 +18,7 @@ searchBtn.addEventListener("click", async (e) => {
           payload.movies[0].imdbId
         );
         console.log({ movieData });
-      }, 3000);
+      }, 1500);
     }
   } catch (e) {
     console.log(e);
