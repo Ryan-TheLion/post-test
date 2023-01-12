@@ -1,6 +1,10 @@
-import { HttpStatusCode } from "axios";
 import { OmdbAPIResponse } from "./response";
 
+const HttpStatusCode = {
+  Ok: 200,
+  NotFound: 404,
+  InternalServerError: 500,
+};
 export class GetMoviesRequestDto {
   static from(params) {
     const { searchKeyword, year, page = 1 } = params;
