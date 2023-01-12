@@ -27,7 +27,7 @@ export class OmdbAPI {
     // query: { searchKeyword, year, page }
     try {
       const moviesPath = this.getPath("movies");
-      console.log(this.#fetcher.getUri());
+
       const res = await this.#fetcher.post(moviesPath, {
         ...query,
       });

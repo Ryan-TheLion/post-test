@@ -14,9 +14,13 @@ export default async function handler(req, res) {
       body: req.body,
       query: req.query,
     });
-    const { data } = await axios.get(url, {
-      params: { ...GetMovieDetailRequestDto.from({ ...req.body }) },
-    });
+    const { data } = await axios.post(
+      url,
+      {
+        ...req.body,
+      },
+      { params: { ...GetMovieDetailRequestDto.from({ ...req.body }) } }
+    );
 
     const { status, payload, message } = GetMovieDetailResponseDto.from(data);
 
