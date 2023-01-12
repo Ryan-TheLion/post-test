@@ -27,14 +27,9 @@ export class OmdbAPI {
     // query: { searchKeyword, year, page }
     try {
       const moviesPath = this.getPath("movies");
-
-      const res = await this.#fetcher.request({
-        url: moviesPath,
-        params: { ...query },
-        method: "POST",
-        body: {
-          ...query,
-        },
+      console.log(this.#fetcher.getUri());
+      const res = await this.#fetcher.post(moviesPath, {
+        ...query,
       });
 
       return res;
@@ -46,13 +41,9 @@ export class OmdbAPI {
   async getMovieDetail(imdbId) {
     try {
       const movieDetailPath = this.getPath("movie");
-
-      const res = await this.#fetcher.request({
-        url: `${movieDetailPath}/${imdbId}`,
-        method: "POST",
-        body: {
-          imdbId,
-        },
+      console.log(this.#fetcher.getUri());
+      const res = await this.#fetcher.post(`${movieDetailPath}/${imdbId}`, {
+        imdbId,
       });
 
       return res;
