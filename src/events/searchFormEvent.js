@@ -48,6 +48,8 @@ export const searchFormSubmitEvent = (searchForm, moviesRef) => {
       moviesRef.moviesEl.classList.remove("movies--no-result");
       moviesRef.moviesEl.classList.remove("movies--error");
       delete moviesRef.moviesEl.dataset.error;
+
+      console.log(moviesRef.moviesEl.classList);
       moviesStateClear(moviesRef);
       moviesRef.state.searchParams = {
         ...params,
