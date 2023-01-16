@@ -1,0 +1,66 @@
+@use "./variables" as vars;
+
+.movie__wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 168px;
+  aspect-ratio: 1 / 1.5;
+  box-sizing: border-box;
+  border-radius: 16px;
+  color: #000;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.05);
+  }
+  .movie {
+    width: 100%;
+    height: 100%;
+  }
+  .poster__wrapper {
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    transform: scale(1.02);
+    .poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      &:empty {
+        background-image: vars.$background-image--skeleton;
+        animation: skeleton-gradient 1.8s infinite;
+      }
+    }
+  }
+  .movie-info {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 0 4px;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+    color: #fff;
+    backdrop-filter: blur(5px);
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    transition: 0.2s opacity;
+    &.loading {
+      backdrop-filter: unset;
+      opacity: 0;
+    }
+    .movie-type {
+      width: 100%;
+      background-color: rgb(237, 237, 75);
+      color: #000;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+  }
+}

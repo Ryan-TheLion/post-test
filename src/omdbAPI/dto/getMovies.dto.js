@@ -1,10 +1,6 @@
 import { OmdbAPIResponse } from "./response";
+import { HttpStatusCode } from "../constants";
 
-const HttpStatusCode = {
-  Ok: 200,
-  NotFound: 404,
-  InternalServerError: 500,
-};
 export class GetMoviesRequestDto {
   static from(params) {
     const { searchKeyword, year, page = 1 } = params;
@@ -35,12 +31,14 @@ export class GetMoviesResponseDto {
 
       return OmdbAPIResponse.success(HttpStatusCode.Ok, {
         movies,
-        totalResults,
+        totalResults: Number(totalResults),
       });
     }
     return OmdbAPIResponse.error(
       Error === "Movie not found!"
         ? HttpStatusCode.NotFound
+        : Error === "Incorrect IMDb ID."
+        ? HttpStatusCode.BadRequest
         : HttpStatusCode.InternalServerError,
       Error
     );

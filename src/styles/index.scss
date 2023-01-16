@@ -1,5 +1,29 @@
 @import url("./header.scss");
+@import url("./trailer.scss");
+@import url("./movies.scss");
+@import url("./movie.scss");
+@import url("./modal.scss");
+@import url("./footer.scss");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+@keyframes skeleton-gradient {
+  to {
+    background-position: 330px 0, 0 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: "Pretendard", sans-serif;
@@ -19,10 +43,27 @@ input {
   border-radius: 8px;
   padding: 10px 15px;
   outline: none;
-  border: 2px solid transparent;
-  transition: border 1s;
+  border: 3px solid transparent;
+  transition: 0.3s;
   &:focus {
-    border: 2px solid red;
+    border: 3px solid rgb(59, 207, 158);
+  }
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo {
+  box-sizing: border-box;
+  img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
   }
 }
 
@@ -40,104 +81,74 @@ input {
   &:hover {
     cursor: pointer;
   }
+  &--rounded {
+    border-radius: 50%;
+  }
+  &--close {
+    background-image: url("../../static/xmark-solid.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+  }
+  &.invert {
+    background-color: transparent;
+    &:hover {
+      background-color: rgba(244, 237, 237, 0.8);
+    }
+  }
 }
 
-.btn--rounded {
-  border-radius: 50%;
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  color: #fff;
+  gap: 10px;
+  .input__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+    input {
+      max-width: 200px;
+    }
+    select {
+      height: 40px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      padding: 10px 0;
+    }
+  }
+  button {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+  }
 }
 
 .inner {
   max-width: 1296px;
+  min-width: 360px;
   margin: 0 auto;
-}
-
-.trailer__wrapper {
-  width: 100%;
-  margin-top: 72px;
-  background-image: url("https://assets.nflxext.com/ffe/siteui/vlv3/7cee2527-d2cc-4cc9-99f6-d1375e72d46e/a17697ce-49b9-493c-b1e7-c539bb26a46d/KR-ko-20230103-popsignuptwoweeks-perspective_alpha_website_large.jpg");
-  position: relative;
-  &::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-image: linear-gradient(
-      to right,
-      #000 0%,
-      rgba(0, 0, 0, 0.25) 25%,
-      rgba(0, 0, 0, 0) 50%,
-      rgba(0, 0, 0, 0.25) 75%,
-      #000 100%
-    );
-    z-index: 2;
-  }
-  .inner {
-    position: relative;
-    max-width: 952px;
-    aspect-ratio: 16 / 9;
-    &::after {
-      content: "";
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      background-image: linear-gradient(
-        to right,
-        #000 0%,
-        rgba(0, 0, 0, 0.25) 25%,
-        rgba(0, 0, 0, 0) 50%,
-        rgba(0, 0, 0, 0.25) 75%,
-        #000 100%
-      );
-      z-index: 2;
-    }
-  }
-  video {
-    display: block;
-    width: 100%;
-    object-fit: cover;
-  }
-  .control__wrapper {
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    z-index: 3;
-    .toggleMuted {
-      display: block;
-      margin-left: 10px;
-      width: 28px;
-      height: 28px;
-      font-size: 0;
-      background: transparent
-        url("https://img.cgv.co.kr/R2014/images/main/ico/soundOff.png")
-        center/18px scroll no-repeat;
-      border: 1px solid #979797;
-      border-radius: 50%;
-      &.active {
-        background: transparent
-          url("https://img.cgv.co.kr/R2014/images/main/ico/soundOn.png")
-          center/18px scroll no-repeat;
-      }
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-      }
-    }
-
-    // .btn {
-    //   color: #eee;
-    //   border: 2px solid #eee;
-    //   &:hover {
-    //     background-color: rgba(255, 255, 255, 0.5);
-    //   }
-    // }
+  box-sizing: border-box;
+  padding: 0 16px;
+  &::after {
+    min-width: 360px;
   }
 }
 
 @media screen and (max-width: 1439px) {
   .inner {
     max-width: 952px;
+  }
+  header {
+    .sub-header__wrapper {
+      max-width: 952px;
+    }
   }
 }

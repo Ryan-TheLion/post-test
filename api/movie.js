@@ -12,13 +12,8 @@ const HttpStatusCode = {
 
 export default async function handler(req, res) {
   try {
-    console.log({
-      method: req?.method,
-      body: req.body,
-      query: req.query,
-    });
-
     const { i, plot } = GetMovieDetailRequestDto.from(req.body);
+
     const data = await fetch(`${url}&i=${i}&plot=${plot}`).then((res) =>
       res.json()
     );

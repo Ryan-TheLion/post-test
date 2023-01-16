@@ -1,11 +1,5 @@
 import { OmdbAPIResponse } from "./response";
-
-const HttpStatusCode = {
-  Ok: 200,
-  BadRequest: 400,
-  NotFound: 404,
-  InternalServerError: 500,
-};
+import { HttpStatusCode } from "../constants";
 
 export class GetMovieDetailRequestDto {
   static from(params) {
@@ -34,12 +28,16 @@ export class GetMovieDetailResponseDto {
       return OmdbAPIResponse.success(HttpStatusCode.Ok, {
         movie: {
           title: Title,
-          released: parseDateString(Released),
-          runTime: parseKoreaTime.call(Runtime),
-          actors: Actors.split(", "),
-          plot: Plot,
-          poster: posterResize(Poster, 700),
-          metaScore: Number(Metascore),
+          released:
+            Released === "N/A" ? "개봉일 정보 없음" : parseDateString(Released),
+          runningTime:
+            Runtime === "N/A"
+              ? "상영시간 정보 없음"
+              : parseKoreaTime.call(Runtime),
+          actors: Actors === "N/A" ? ["배우 정보 없음"] : Actors.split(", "),
+          plot: Plot === "N/A" ? "줄거리 정보 없음" : Plot,
+          poster: Poster,
+          metaScore: Metascore === "N/A" ? "NaN" : Number(Metascore),
           type: Type,
         },
       });
@@ -54,7 +52,10 @@ export class GetMovieDetailResponseDto {
   }
 }
 
-// 포스터 크기 조절
+// 포스터 크기 조절 (개선하여 사용예정)
+// - 변환된 주소는 잘 가져오지만 것 같지만,
+//   실제 이미지로드시에는 시간이 걸림
+// [TODO] 최적화된 리사이징 포스트 작업 구현
 function posterResize(posterUrl, size) {
   const posterSizeRegExp = /[0-9]+(?=\.jpg)/;
 

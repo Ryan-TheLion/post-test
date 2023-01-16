@@ -1,8 +1,9 @@
 import axios, { HttpStatusCode } from "axios";
 import { OmdbAPIResponse } from "./dto";
+import { omdbAPIValidator } from "./validator";
 import { OmdbAPIVersioningTool } from "./versioningTool";
 
-export class OmdbAPI {
+class OmdbAPI {
   #versionTool;
   #fetcher;
 
@@ -12,6 +13,7 @@ export class OmdbAPI {
     this.#fetcher = axios.create({
       baseURL: `/api`,
     });
+    this.validator = omdbAPIValidator;
   }
 
   getPath(pathName) {
@@ -24,7 +26,6 @@ export class OmdbAPI {
   }
 
   async getMovies(query) {
-    // query: { searchKeyword, year, page }
     try {
       const moviesPath = this.getPath("movies");
 
@@ -41,7 +42,9 @@ export class OmdbAPI {
   async getMovieDetail(imdbId) {
     try {
       const movieDetailPath = this.getPath("movie");
-      console.log(this.#fetcher.getUri());
+
+      console.log({ imdbId });
+
       const res = await this.#fetcher.post(movieDetailPath, {
         imdbId,
       });
@@ -65,3 +68,5 @@ export class OmdbAPI {
     };
   }
 }
+
+export const movieAPI = new OmdbAPI();

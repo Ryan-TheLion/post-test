@@ -8,11 +8,34 @@ export class OmdbAPIValidator {
   validateSearchParam(param, value) {
     const v = this.#version;
 
+    const regex = {
+      searchKeyword: {
+        isAlphaOrNumOrSpaceOrAllowdSpecial: new RegExp(
+          `^[a-zA-Z0-9:\\- ]{${value.length}}$`
+        ),
+      },
+    };
+
     switch (param) {
-      case "s":
-        return typeof value === paramTypes[v].search.s;
-      case "y":
-        return typeof value === paramTypes[v].search.y && y > 0;
+      case "searchKeyword":
+        if (!value) {
+          return { errorMessage: "검색어는 필수 입력 항목입니다." };
+        }
+        if (value.length <= 2) {
+          return { errorMessage: "검색어는 최소 3자 이상이어야 합니다." };
+        }
+        if (
+          !regex.searchKeyword.isAlphaOrNumOrSpaceOrAllowdSpecial.test(value)
+        ) {
+          return {
+            errorMessage:
+              "검색어는 영어, 숫자, 공백, 또는 특수문자 -:의 조합만 가능합니다.",
+          };
+        }
+
+        return true;
+      case "year":
+        return typeof value === paramTypes[v].search.y && y > 1900;
       case "page":
         return (
           typeof value === paramTypes[v].search.page &&

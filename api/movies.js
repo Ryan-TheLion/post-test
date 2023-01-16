@@ -4,25 +4,16 @@ import {
   GetMoviesResponseDto,
   OmdbAPIResponse,
 } from "../src/omdbAPI/dto";
+import { HttpStatusCode } from "../src/omdbAPI/constants";
+import { createQueryString } from "../src/util/createQueryString";
 
 const url = `${process.env.apiUrl}/?apikey=${process.env.apiKey}`;
-const HttpStatusCode = {
-  InternalServerError: 500,
-};
 
 export default async function handler(req, res) {
   try {
-    console.log({
-      method: req?.method,
-      body: req.body,
-      query: req.query,
-    });
+    const qs = createQueryString({ ...GetMoviesRequestDto.from(req.body) });
 
-    const { s, y, page } = GetMoviesRequestDto.from(req.body);
-
-    const data = await fetch(`${url}&s=${s}&y=${y}&page=${page}`).then((res) =>
-      res.json()
-    );
+    const data = await fetch(`${url}&${qs}`).then((res) => res.json());
 
     const { status, payload, message } = GetMoviesResponseDto.from(data);
 
