@@ -3,7 +3,7 @@
 .movies__wrapper {
   display: flex;
   flex-direction: column;
-  padding: 72px 16px 0;
+  padding: 72px;
   gap: 12px;
   justify-content: center;
   align-items: center;
@@ -42,7 +42,6 @@
         );
       }
       .input__wrapper {
-        // position: relative;
         input.error {
           border: 3px solid rgb(228, 78, 78);
         }
@@ -87,7 +86,7 @@
     position: relative;
     max-width: calc(
       vars.$width--movie * vars.$movie-items-per-line +
-        calc(vars.$movie-items-gap * vars.$movie-items-per-line) + 4px
+        calc(vars.$movie-items-gap * vars.$movie-items-per-line)
     );
     width: 100%;
     flex: 1;
@@ -96,7 +95,6 @@
     align-content: flex-start;
     flex-wrap: wrap;
     transition: background-color 0.3s;
-    padding: 16px 0;
     gap: vars.$movie-items-gap;
     &.loading {
       &::after {
