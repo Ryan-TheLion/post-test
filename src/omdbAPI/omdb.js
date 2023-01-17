@@ -43,8 +43,6 @@ class OmdbAPI {
     try {
       const movieDetailPath = this.getPath("movie");
 
-      console.log({ imdbId });
-
       const res = await this.#fetcher.post(movieDetailPath, {
         imdbId,
       });

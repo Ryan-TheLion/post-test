@@ -84,21 +84,19 @@
   }
 
   .movies {
-    padding-top: 16px;
     position: relative;
     max-width: calc(
       vars.$width--movie * vars.$movie-items-per-line +
         calc(vars.$movie-items-gap * vars.$movie-items-per-line) + 4px
     );
     width: 100%;
-    // min-width: 340px;
-    // min-width: calc(vars.$width--movie + vars.$movie-items-gap + 4px);
     flex: 1;
     display: flex;
     justify-content: center;
     align-content: flex-start;
     flex-wrap: wrap;
     transition: background-color 0.3s;
+    padding: 16px 0;
     gap: vars.$movie-items-gap;
     &.loading {
       &::after {
