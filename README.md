@@ -111,7 +111,7 @@
 ## API 기본 사용법
 
 ```curl
-curl https://omdbapi.com/?apikey=7035c60c
+curl https://omdbapi.com/?apikey={apikey}
   \ -X 'GET'
 ```
 
@@ -132,7 +132,7 @@ async function getMovies(title, year = "", page = 1) {
   const s = `&s=${title}`;
   const y = `&y=${year}`;
   const p = `&page=${page}`;
-  const res = await fetch(`https://omdbapi.com/?apikey=7035c60c${s}${y}${p}`);
+  const res = await fetch(`https://omdbapi.com/?apikey={apikey}c${s}${y}${p}`);
   const json = await res.json();
   if (json.Response === "True") {
     const { Search: movies, totalResults } = json;
@@ -199,7 +199,7 @@ interface Movie {
 ```js
 async function getMovie(id) {
   const res = await fetch(
-    `https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`
+    `https://omdbapi.com/?apikey={apikey}&i=${id}&plot=full`
   );
   const json = await res.json();
   if (json.Response === "True") {
